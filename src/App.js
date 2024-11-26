@@ -7,19 +7,20 @@ import QuestionCreate from './pages/QuestionCreate';
 import Header from "./components/Header";
 import QuestionList from './components/QuestionList';
 import FqAskedList from './components/FqAskedList';
+import {QuestionProvider} from './context/QuestionContext';
 
 function App() {
   return (
+      <QuestionProvider>
       <Router>
           <Routes>
               <Route path="/" element={<MainPage />} />
               <Route path="/ask-list" element={<FqAskedList />} />
               <Route path="/question-list" element={<QuestionList />} />
               <Route path="/question-create" element={<QuestionCreate />} />
-
           </Routes>
       </Router>
-
+      </QuestionProvider>
   );
 }
 

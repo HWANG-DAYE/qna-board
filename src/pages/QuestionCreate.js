@@ -1,15 +1,23 @@
-import React, { useState } from "react";
+import React, {useContext, useState} from "react";
 import { useNavigate } from 'react-router-dom';
+import { QuestionContext } from '../context/QuestionContext';
 
 const QuestionCreate = () => {
     const navigate = useNavigate();
+    const { addQuestion } = useContext(QuestionContext);
     const [title, setTitle ] = useState("");
     const [content, setContent ] = useState("");
+    const [author, setAuthor ] = useState("");
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        console.log("Submitted Title: ", title);
-        console.log("Submitted Content: ", content);
+        const newQuestion = {
+            user_id: Date.now(),
+            author,
+            title,
+            content,
+        };
+        addQuestion(newQuestion);
         alert("문의 완료");
         navigate("/question-list")
     };
@@ -19,6 +27,17 @@ const QuestionCreate = () => {
             <h2>문의 작성</h2>
             <form onSubmit={handleSubmit}>
                 <div style={{ marginBottom: "10px"  }}>
+                    <label>
+                        작성자
+                        <input
+                            type="text"
+                            value={author}
+                            onChange={(e) => setTitle(e.target.value)}
+                            style={{ width: "30%", padding: "8px", marginTop: "5px" }}
+                            placeholder="작성자명"
+                            required
+                        />
+                    </label>
                     <label>
                         제목
                         <input
