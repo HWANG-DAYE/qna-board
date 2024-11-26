@@ -11,7 +11,7 @@ function QuestionList() {
             <h2>QuestionList</h2>
         <ul>
             {questions.map((question) => (
-                <li key={question.users_id} style={{ margin: "10ps 0" }}>
+                <li key={question.users_id} style={{ margin: "10px 0" }}>
                     <strong>{question.title}</strong> - {question.author}
                     </li>
             ))}
