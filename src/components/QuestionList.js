@@ -10,10 +10,13 @@ function QuestionList() {
     return (
         <div style={{ padding: "20px" }}>
             <h2>Question List</h2>
-            <button onClick={() => navigate('/question-create')}>문의하기</button>
+            <button onClick={() => navigate('/question-create')}>작성</button>
             <ul>
-                {questions.map((question, index) => (
-                    <li key={index} style={{margin: "10px 0"}}>
+                {questions.map((question) => (
+                    <li key={question.user_id}
+                        style={{margin: "10px 0", cursor: "pointer"}}
+                        onClick={() => navigate(`/questions/${question.user_id}`)}
+                    >
                         <strong>{question.title}</strong> - {question.author}
                     </li>
                 ))}

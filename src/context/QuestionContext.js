@@ -13,7 +13,7 @@ export const QuestionProvider = ({ children }) => {
     };
 
     return (
-        <QuestionContext.Provider value={( questions, addQuestion )}>
+        <QuestionContext.Provider value={{ questions, addQuestion }}>
             {children}
         </QuestionContext.Provider>
     );

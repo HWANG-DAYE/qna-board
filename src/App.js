@@ -2,7 +2,7 @@ import React from "react";
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import MainPage from './pages/MainPage';
 import FrequentlyAsked from './pages/FrequentlyAsked';
-import QuestionPage from './pages/QuestionPage';
+import QuestionDetail from './pages/QuestionDetail';
 import QuestionCreate from './pages/QuestionCreate';
 import Header from "./components/Header";
 import QuestionList from './components/QuestionList';
@@ -18,6 +18,8 @@ function App() {
               <Route path="/ask-list" element={<FqAskedList />} />
               <Route path="/question-list" element={<QuestionList />} />
               <Route path="/question-create" element={<QuestionCreate />} />
+              <Route path="/question-detail" element={<QuestionDetail />} />
+
           </Routes>
       </Router>
       </QuestionProvider>
