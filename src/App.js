@@ -18,7 +18,7 @@ function App() {
               <Route path="/ask-list" element={<FqAskedList />} />
               <Route path="/question-list" element={<QuestionList />} />
               <Route path="/question-create" element={<QuestionCreate />} />
-              <Route path="/question-detail" element={<QuestionDetail />} />
+              <Route path="/questions/:id" element={<QuestionDetail />} />
 
           </Routes>
       </Router>
