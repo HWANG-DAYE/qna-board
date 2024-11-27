@@ -1,6 +1,7 @@
 import React, {useContext} from "react";
 import { useNavigate } from 'react-router-dom';
 import { QuestionContext } from '../context/QuestionContext';
+import Header from "./Header";
 
 
 function QuestionList() {
