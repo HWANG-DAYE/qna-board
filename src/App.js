@@ -1,7 +1,7 @@
 import React from "react";
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import MainPage from './pages/MainPage';
-import FAQPage from './pages/FAQPage';
+import FAQ from './pages/FAQ';
 import QuestionDetail from './pages/QuestionDetail';
 import QuestionCreate from './pages/QuestionCreate';
 import Header from "./components/Header";

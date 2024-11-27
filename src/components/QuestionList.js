@@ -9,7 +9,7 @@ function QuestionList() {
     const { questions } = useContext(QuestionContext);
 
     return (
-        <div style={{ padding: "20px" }}>
+        <div style={{ listStyle: "none", padding: "20px" }}>
             <h2>Question List</h2>
             <button onClick={() => navigate('/question-create')}>작성</button>
             <ul>
