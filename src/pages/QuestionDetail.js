@@ -14,14 +14,15 @@ const QuestionDetail = () => {
     }
     
     return (
-            <div style={{padding: "20px"}}>
-                <h2>{question.title}</h2>
-                <p><strong>작성자: </strong> {question.author}</p>
-                <p><strong>내용: </strong></p>
-                <p>{question.content}</p>
-                <button onClick={() => navigate(-1)}>뒤로가기</button>
-            </div>
-            );
-            };
+        <div style={{padding: "20px"}}>
+            <h2>{question.title}</h2>
+            <p>{question.date} {question.time}</p>
+            <p><strong>작성자: </strong> {question.author}</p>
+            <p><strong>내용: </strong></p>
+            <p>{question.content}</p>
+            <button onClick={() => navigate(-1)}>뒤로가기</button>
+        </div>
+    );
+};
 
             export default QuestionDetail;

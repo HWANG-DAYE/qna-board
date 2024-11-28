@@ -11,11 +11,20 @@ const QuestionCreate = () => {
 
     const handleSubmit = (e) => {
         e.preventDefault();
+        const now = new Date();
+        const formattedDate = now.toISOString().split("T")[0];
+        const hours = String(now.getHours()).padStart(2, '0');
+        const minutes = String(now.getMinutes()).padStart(2, '0');
+        const seconds = String(now.getSeconds()).padStart(2, '0');
+        const formattedTime = `${hours}:${minutes}:${seconds}`;
+        console.log(formattedTime);
         const newQuestion = {
             user_id: Date.now(),
             author,
             title,
             content,
+            date:formattedDate,
+            time:formattedTime
         };
         addQuestion(newQuestion);
         alert("문의 완료");
@@ -103,7 +112,7 @@ const QuestionCreate = () => {
                     >
                         제출
                     </button>
-                    <button type="button" onClick={() => navigate("/question-list")}
+                    <button type="button" onClick={() => navigate("/")}
                             style={{
                                 padding: "10px 20px",
                                 cursor: "pointer",

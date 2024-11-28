@@ -1,9 +1,7 @@
 import React, {useState} from 'react';
-import { useNavigate } from 'react-router-dom';
 import FAQList from '../components/FAQList';
 import QuestionList from '../components/QuestionList';
 import Header from "../components/Header";
-import Board from '../pages/Board';
 
 const MainPage = () => {
     const [activeTab, setActiveTab] = useState("FAQ")
@@ -20,8 +18,8 @@ const MainPage = () => {
                     style={{
                         padding: "10px 20px",
                         cursor: "pointer",
-                        backgroundColor: activeTab === "FAQ" ? "#007BFF" : "#f0f0f0",
-                        color: activeTab === "FAQ" ? "#fff" : "#000",
+                        backgroundColor: activeTab === "FAQ" ? "#000000" : "#f0f0f0",
+                        color: activeTab === "FAQ" ? "#fff" : "#000000",
                         border: "1px solid #ddd",
                         borderRadius: "4px 4px 0 0",
                         marginRight: "10px",
@@ -34,8 +32,8 @@ const MainPage = () => {
                     style={{
                         padding: "10px 20px",
                         cursor: "pointer",
-                        backgroundColor: activeTab === "question" ? "#007BFF" : "#f0f0f0",
-                        color: activeTab === "question" ? "#fff" : "#000",
+                        backgroundColor: activeTab === "question" ? "#000000" : "#f0f0f0",
+                        color: activeTab === "question" ? "#fff" : "#000000",
                         border: "1px solid #ddd",
                         borderRadius: "4px 4px 0 0",
                     }}
