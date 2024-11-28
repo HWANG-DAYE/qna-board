@@ -6,16 +6,27 @@ function QuestionList() {
     const navigate = useNavigate();
     const { questions } = useContext(QuestionContext);
 
+    // 최신순으로 정렬
+    const sortedQuestions = [...questions].sort((a, b) => {
+        // 날짜를 기준으로 내림차순 정렬 (가장 최근 날짜가 맨 위)
+        return new Date(b.date) - new Date(a.date);
+    });
+
     return (
-        <div style={{padding: "10px"}}>
-            <strong>
-            대표전화1599 - 2785
-            <br/>
-            업무시간 평일 10:00 - 17:00
-            <br/>
-            점심시간 12:30 - 13:30
-            <br/>
-            (주말 및 공휴일휴무)
+        <div style={{ padding: "10px"}}>
+            <img
+                src={`${process.env.PUBLIC_URL}/qna-icon.png`}
+                alt="Q&A Icon"
+                style={{float: "left", width: "100px", height: "100px", marginLeft: "50px"}}
+            />
+            <strong style={{display: "block", textAlign: "center", margin: "10px 0"}}>
+                대표전화 1996-0109
+                <br/>
+                업무시간 평일 10:00 - 17:00
+                <br/>
+                점심시간 12:00 - 13:00
+                <br/>
+                (주말 및 공휴일휴무)
             </strong>
             <button onClick={() => navigate('/question-create')}
                     style={{
@@ -45,7 +56,7 @@ function QuestionList() {
                 </tr>
                 </thead>
                 <tbody>
-                {questions.map((question) => (
+                {sortedQuestions.map((question) => (
                     <tr
                         key={question.user_id}
                         style={{
