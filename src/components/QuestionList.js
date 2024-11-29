@@ -6,10 +6,13 @@ function QuestionList() {
     const navigate = useNavigate();
     const { questions } = useContext(QuestionContext);
 
-    // 최신순으로 정렬
     const sortedQuestions = [...questions].sort((a, b) => {
-        // 날짜를 기준으로 내림차순 정렬 (가장 최근 날짜가 맨 위)
-        return new Date(b.date) - new Date(a.date);
+        // 날짜와 시간을 조합하여 비교
+        const dateTimeA = new Date(`${a.date} ${a.time}`);
+        const dateTimeB = new Date(`${b.date} ${b.time}`);
+
+        // 최신순 (내림차순)으로 정렬
+        return dateTimeB - dateTimeA;
     });
 
     return (
