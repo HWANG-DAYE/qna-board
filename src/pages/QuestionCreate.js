@@ -28,7 +28,7 @@ const QuestionCreate = () => {
         };
         addQuestion(newQuestion);
         alert("문의 완료");
-        navigate("/question-list")
+        navigate("/")
     };
 
     return (

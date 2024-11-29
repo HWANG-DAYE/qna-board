@@ -4,10 +4,17 @@ import { QuestionContext } from "../context/QuestionContext";
 
 const QuestionDetail = () => {
     const { id } = useParams();
-    const { questions } = useContext(QuestionContext);
+    const { questions, deleteQuestion } = useContext(QuestionContext);
     const navigate = useNavigate();
 
     const question = questions.find((question) => question.user_id === parseInt(id));
+
+    const handleDelete = () => {
+        if (window.confirm("정말 삭제하시겠습니까?")) {
+            deleteQuestion(parseInt(id));
+            navigate("/");
+        }
+    };
 
     if (!question) {
         return <p style={{ textAlign: "center", color: "#888" }}>질문을 찾을 수 없습니다.</p>;
@@ -61,7 +68,7 @@ const QuestionDetail = () => {
                     수정
                 </button>
                 <button
-                    onClick={() => navigate("/")}
+                    onClick={handleDelete}
                     style={{
                         padding: "10px 15px",
                         backgroundColor: "#FF6B6B",
