@@ -1,10 +1,21 @@
-import React, {useContext} from "react";
+import React, {  useEffect,useContext} from "react";
 import { useNavigate } from 'react-router-dom';
 import { QuestionContext } from '../context/QuestionContext';
+import axios from "axios";
 
 function QuestionList() {
     const navigate = useNavigate();
-    const { questions } = useContext(QuestionContext);
+    const { questions, setQuestions } = useContext(QuestionContext);
+
+    useEffect(() => {
+        axios.get("/api/questions/sorted")
+            .then(response => {
+                setQuestions(response.data);
+            })
+            .catch(error => {
+                console.error("There was an error fetching the questions!", error);
+            });
+    }, []);
 
     const sortedQuestions = [...questions].sort((a, b) => {
         // 날짜와 시간을 조합하여 비교

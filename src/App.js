@@ -8,6 +8,7 @@ import Header from "./components/Header";
 import QuestionList from './components/QuestionList';
 import FAQList from './components/FAQList';
 import {QuestionProvider} from './context/QuestionContext';
+import QuestionEdit from "./pages/QuestionEdit";
 
 function App() {
   return (
@@ -19,6 +20,7 @@ function App() {
               <Route path="/question-list" element={<QuestionList />} />
               <Route path="/question-create" element={<QuestionCreate />} />
               <Route path="/questions/:id" element={<QuestionDetail />} />
+              <Route path="/question-edit" element={<QuestionEdit />} />
 
           </Routes>
       </Router>

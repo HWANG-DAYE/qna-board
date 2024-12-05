@@ -1,16 +1,28 @@
-import React, { useContext } from "react";
+import React, { useEffect, useContext } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { QuestionContext } from "../context/QuestionContext";
+import axios from "axios";
 
 const QuestionDetail = () => {
     const { id } = useParams();
-    const { questions, deleteQuestion } = useContext(QuestionContext);
+    const { questions, deleteQuestion, setQuestion } = useContext(QuestionContext);
     const navigate = useNavigate();
+
+    useEffect(() => {
+        axios.get(`/api/questions/${id}`)
+            .then(response => setQuestion(response.data))
+            .catch(error => console.error("Error fetching question:", error));
+    }, [id]);
+
+    if (!questions) return <p>Loading...</p>;
 
     const question = questions.find((question) => question.user_id === parseInt(id));
 
     const handleDelete = () => {
         if (window.confirm("정말 삭제하시겠습니까?")) {
+            axios.delete(`/api/questions/${id}`)
+                .then(() => alert("Question deleted successfully!"))
+                .catch(error => console.error("Error deleting question:", error));
             deleteQuestion(parseInt(id));
             navigate("/");
         }
@@ -55,7 +67,7 @@ const QuestionDetail = () => {
                     뒤로가기
                 </button>
                 <button
-                    onClick={() => navigate("/")}
+                    onClick={() => navigate('/question-edit')}
                     style={{
                         padding: "10px 15px",
                         backgroundColor: "#007BFF",

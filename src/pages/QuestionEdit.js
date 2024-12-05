@@ -1,43 +1,44 @@
-import React, {useContext, useState} from "react";
-import { useNavigate } from 'react-router-dom';
-import { QuestionContext } from '../context/QuestionContext';
+import React, { useState, useEffect } from "react";
+import { useParams, useNavigate } from "react-router-dom";
 import axios from "axios";
 
-const QuestionCreate = () => {
+const QuestionEdit = () => {
+    const { id } = useParams();
     const navigate = useNavigate();
-    const { addQuestion } = useContext(QuestionContext);
-    const [title, setTitle ] = useState("");
-    const [content, setContent ] = useState("");
-    const [author, setAuthor ] = useState("");
+    const [title, setTitle] = useState("");
+    const [content, setContent] = useState("");
+    const [author, setAuthor] = useState("");
+    const [isLoading, setIsLoading] = useState(true);
 
-    const handleSubmit = (e) => {
-        e.preventDefault();
-        const now = new Date();
-        const formattedDate = now.toISOString().split("T")[0];
-        const hours = String(now.getHours()).padStart(2, '0');
-        const minutes = String(now.getMinutes()).padStart(2, '0');
-        const seconds = String(now.getSeconds()).padStart(2, '0');
-        const formattedTime = `${hours}:${minutes}:${seconds}`;
-        console.log(formattedTime);
-        const newQuestion = {
-            user_id: Date.now(),
-            author,
-            title,
-            content,
-            date:formattedDate,
-            time:formattedTime
-        };
-        addQuestion(newQuestion);
-        axios.post("/api/questions", newQuestion)
+    useEffect(() => {
+        axios.get(`/api/questions/${id}`)
             .then(response => {
-                alert("Question created successfully!");
-                setTitle("");
-                setContent("");
-                setAuthor("");
+                const { author, title, content } = response.data;
+                setAuthor(author);
+                setTitle(title);
+                setContent(content);
+                setIsLoading(false);
             })
-            .catch(error => console.error("Error creating question:", error));
-        navigate("/")
+            .catch(error => {
+                console.error("Error fetching question:", error);
+                setIsLoading(false);
+            });
+    }, [id]);
+
+    const handleUpdate = (e) => {
+        e.preventDefault();
+        const updatedQuestion = { author, title, content };
+        axios.put(`/api/questions/${id}`, updatedQuestion)
+            .then(() => {
+                alert("Question updated successfully!");
+                navigate(`/questions/${id}`);
+            })
+            .catch(error => console.error("Error updating question:", error));
     };
+
+    if (isLoading) {
+        return <p>Loading...</p>; // 로딩 상태 표시
+    }
 
     return (
         <div style={{
@@ -47,17 +48,16 @@ const QuestionCreate = () => {
             minHeight: "50vh"
         }}>
             <div style={{
-                width: "1300px", // 폼의 고정 너비
+                width: "1300px",
                 padding: "20px"
             }}>
-                <h2>문의 작성</h2>
-                <form onSubmit={handleSubmit}>
-                    <div style={{marginBottom: "10px"}}>
-                        <label style={{display: "block", marginBottom: "20px"}}>
+                <form onSubmit={handleUpdate}>
+                    <div style={{ marginBottom: "10px" }}>
+                        <label style={{ display: "block", marginBottom: "20px" }}>
                             작성자
                             <input
                                 type="text"
-                                value={author}
+                                value={author || ""}
                                 onChange={(e) => setAuthor(e.target.value)}
                                 style={{
                                     width: "100%",
@@ -66,15 +66,13 @@ const QuestionCreate = () => {
                                     borderRadius: "4px",
                                     border: "1px solid #ccc"
                                 }}
-                                placeholder="작성자명"
-                                required
                             />
                         </label>
-                        <label style={{display: "block", marginBottom: "10px"}}>
+                        <label style={{ display: "block", marginBottom: "10px" }}>
                             제목
                             <input
                                 type="text"
-                                value={title}
+                                value={title || ""}
                                 onChange={(e) => setTitle(e.target.value)}
                                 style={{
                                     width: "100%",
@@ -83,16 +81,14 @@ const QuestionCreate = () => {
                                     borderRadius: "4px",
                                     border: "1px solid #ccc"
                                 }}
-                                placeholder="문의 제목을 입력하세요."
-                                required
                             />
                         </label>
                     </div>
-                    <div style={{marginBottom: "10px"}}>
-                        <label style={{display: "block", marginBottom: "10px"}}>
+                    <div style={{ marginBottom: "10px" }}>
+                        <label style={{ display: "block", marginBottom: "10px" }}>
                             내용
                             <textarea
-                                value={content}
+                                value={content || ""}
                                 onChange={(e) => setContent(e.target.value)}
                                 style={{
                                     width: "100%",
@@ -102,8 +98,6 @@ const QuestionCreate = () => {
                                     borderRadius: "4px",
                                     border: "1px solid #ccc"
                                 }}
-                                placeholder="문의 내용을 입력하세요."
-                                required
                             />
                         </label>
                     </div>
@@ -135,8 +129,7 @@ const QuestionCreate = () => {
                 </form>
             </div>
         </div>
+    );
+};
 
-            );
-            };
-
-            export default QuestionCreate;
+export default QuestionEdit;
