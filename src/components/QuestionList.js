@@ -10,10 +10,10 @@ function QuestionList() {
     useEffect(() => {
         axios.get("/api/questions/sorted")
             .then(response => {
-                setQuestions(response.data);
+                setQuestions(response.data); // 응답에 'questions_id' 필드가 포함된다고 가정
             })
             .catch(error => {
-                console.error("There was an error fetching the questions!", error);
+                console.error("Error fetching questions:", error);
             });
     }, []);
 
@@ -72,14 +72,14 @@ function QuestionList() {
                 <tbody>
                 {sortedQuestions.map((question) => (
                     <tr
-                        key={question.user_id}
+                        key={question.questions_id}
                         style={{
                             borderBottom: "1px solid #ddd",
                             cursor: "pointer",
                         }}
-                        onClick={() => navigate(`/questions/${question.user_id}`)}
+                        onClick={() => navigate(`/questions/${question.questions_id}`)}
                     >
-                        <td style={{padding: "10px"}}>{question.user_id}</td>
+                        <td style={{padding: "10px"}}>{question.questions_id}</td>
                         <td style={{padding: "10px"}}>{question.title}</td>
                         <td style={{padding: "10px"}}>{question.author}</td>
                         <td style={{padding: "10px"}}>{question.date}</td>

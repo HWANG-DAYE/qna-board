@@ -1,36 +1,25 @@
-import React, { useEffect, useContext } from "react";
+import React, { useContext } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { QuestionContext } from "../context/QuestionContext";
-import axios from "axios";
 
 const QuestionDetail = () => {
     const { id } = useParams();
-    const { questions, deleteQuestion, setQuestion } = useContext(QuestionContext);
+    const { questions, deleteQuestion } = useContext(QuestionContext); // 컨텍스트에서 데이터 가져오기
     const navigate = useNavigate();
 
-    useEffect(() => {
-        axios.get(`/api/questions/${id}`)
-            .then(response => setQuestion(response.data))
-            .catch(error => console.error("Error fetching question:", error));
-    }, [id]);
-
-    if (!questions) return <p>Loading...</p>;
-
-    const question = questions.find((question) => question.user_id === parseInt(id));
-
-    const handleDelete = () => {
-        if (window.confirm("정말 삭제하시겠습니까?")) {
-            axios.delete(`/api/questions/${id}`)
-                .then(() => alert("Question deleted successfully!"))
-                .catch(error => console.error("Error deleting question:", error));
-            deleteQuestion(parseInt(id));
-            navigate("/");
-        }
-    };
+    // questions 배열에서 특정 질문 찾기
+    const question = questions.find((question) => question.questions_id === parseInt(id));
 
     if (!question) {
         return <p style={{ textAlign: "center", color: "#888" }}>질문을 찾을 수 없습니다.</p>;
     }
+
+    const handleDelete = () => {
+        if (window.confirm("정말 삭제하시겠습니까?")) {
+            deleteQuestion(parseInt(id)); // 컨텍스트 메서드 호출
+            navigate("/");
+        }
+    };
 
     return (
         <div style={{

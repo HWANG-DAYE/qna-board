@@ -18,8 +18,8 @@ export const QuestionProvider = ({ children }) => {
         localStorage.setItem("questions",JSON.stringify(updatedQuestions));
     };
 
-    const deleteQuestion = (user_id) => {
-        const updatedQuestions = questions.filter((question) => question.user_id !== user_id); // id로 삭제
+    const deleteQuestion = (questions_id) => {
+        const updatedQuestions = questions.filter((question) => question.questions_id !== questions_id); // id로 삭제
         setQuestions(updatedQuestions);
         localStorage.setItem("questions", JSON.stringify(updatedQuestions)); // 로컬 스토리지 업데이트
     };

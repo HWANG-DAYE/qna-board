@@ -20,7 +20,7 @@ const QuestionCreate = () => {
         const formattedTime = `${hours}:${minutes}:${seconds}`;
         console.log(formattedTime);
         const newQuestion = {
-            user_id: Date.now(),
+            id: Date.now(),
             author,
             title,
             content,

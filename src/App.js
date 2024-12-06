@@ -1,10 +1,8 @@
 import React from "react";
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import MainPage from './pages/MainPage';
-import FAQ from './pages/FAQ';
 import QuestionDetail from './pages/QuestionDetail';
 import QuestionCreate from './pages/QuestionCreate';
-import Header from "./components/Header";
 import QuestionList from './components/QuestionList';
 import FAQList from './components/FAQList';
 import {QuestionProvider} from './context/QuestionContext';
